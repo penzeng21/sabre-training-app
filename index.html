@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0E1116">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>佩剑体能训练 · 循环训练</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="brand">
+    <div class="brand-mark" aria-hidden="true"></div>
+    <div class="brand-text">
+      <h1>佩剑体能训练</h1>
+      <p>循环训练 · 4 周一循环</p>
+    </div>
+  </div>
+  <button class="icon-btn" id="btn-settings" aria-label="设置">
+    <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M19.14 12.94a7.5 7.5 0 0 0 .06-.94 7.5 7.5 0 0 0-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.03 7.03 0 0 0-1.62-.94l-.36-2.54a.5.5 0 0 0-.5-.42h-3.84a.5.5 0 0 0-.5.42l-.36 2.54c-.58.24-1.13.56-1.62.94l-2.39-.96a.5.5 0 0 0-.6.22L2.67 8.84a.5.5 0 0 0 .12.64l2.03 1.58a7.5 7.5 0 0 0 0 1.88l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.13.22.39.3.6.22l2.39-.96c.49.38 1.04.7 1.62.94l.36 2.54c.04.24.25.42.5.42h3.84c.25 0 .46-.18.5-.42l.36-2.54c.58-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z"/></svg>
+  </button>
+</header>
+
+<main class="content">
+
+  <!-- ============ 今日 ============ -->
+  <section id="view-today" class="view active"></section>
+
+  <!-- ============ 周计划 ============ -->
+  <section id="view-week" class="view">
+    <h2 class="view-title">本周安排</h2>
+    <p class="view-sub">周一至周日,按佩剑专项节奏排布</p>
+    <div id="week-list" class="week-list"></div>
+    <div class="card note-card">
+      <h4>一周只能练 4 天?</h4>
+      <p>保留 <b>周一 A</b>、<b>周二 C</b>、<b>周三 B</b>、<b>周五 D</b>,周六日休息。</p>
+    </div>
+  </section>
+
+  <!-- ============ 动作库 ============ -->
+  <section id="view-ex" class="view">
+    <h2 class="view-title">动作库</h2>
+    <p class="view-sub">4 大模块 · 24 个佩剑定制动作</p>
+    <div id="ex-tabs" class="ex-tabs"></div>
+    <div id="ex-list" class="ex-list"></div>
+  </section>
+
+  <!-- ============ 周期 ============ -->
+  <section id="view-cycle" class="view">
+    <h2 class="view-title">4 周循环</h2>
+    <p class="view-sub">渐进超负荷 → 减量恢复</p>
+    <div id="cycle-card" class="cycle-card"></div>
+    <div id="cycle-table"></div>
+    <div class="card note-card">
+      <h4>循环推进</h4>
+      <p>完成 4 周后进入下一循环,在第 2 周基础上 +5–10% 负荷(箱高 +5cm、负重 +2kg、劈砍提速),或更换 1–2 个动作避免平台期。</p>
+    </div>
+    <div class="card note-card warn">
+      <h4>比赛周调整</h4>
+      <ul id="competition-tips"></ul>
+    </div>
+    <div id="tips-list" class="tips-list"></div>
+  </section>
+
+  <!-- ============ 记录 ============ -->
+  <section id="view-log" class="view">
+    <h2 class="view-title">训练记录</h2>
+    <p class="view-sub">每一次循环,都算数</p>
+    <div id="log-stats" class="log-stats"></div>
+    <div id="log-list" class="log-list"></div>
+  </section>
+
+</main>
+
+<!-- ============ 底部导航 ============ -->
+<nav class="tabbar" id="tabbar">
+  <button class="tab" data-view="today"><span class="tab-ico">◈</span><span>今日</span></button>
+  <button class="tab" data-view="week"><span class="tab-ico">▦</span><span>计划</span></button>
+  <button class="tab" data-view="ex"><span class="tab-ico">✚</span><span>动作</span></button>
+  <button class="tab" data-view="cycle"><span class="tab-ico">◎</span><span>周期</span></button>
+  <button class="tab" data-view="log"><span class="tab-ico">☰</span><span>记录</span></button>
+</nav>
+
+<!-- ============ 计时器全屏 ============ -->
+<div id="timer-overlay" class="overlay" hidden>
+  <div class="timer-top">
+    <button class="icon-btn ghost" id="timer-cancel" aria-label="退出">
+      <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </button>
+    <span class="timer-phase" id="timer-phase">准备</span>
+    <span class="timer-round" id="timer-round"></span>
+  </div>
+
+  <div class="timer-main">
+    <svg class="ring" viewBox="0 0 260 260">
+      <circle class="ring-track" cx="130" cy="130" r="118"/>
+      <circle class="ring-progress" id="ring-progress" cx="130" cy="130" r="118"/>
+    </svg>
+    <div class="timer-center">
+      <div class="timer-time" id="timer-time">00:05</div>
+      <div class="timer-label" id="timer-label">准备</div>
+    </div>
+  </div>
+
+  <div class="timer-tip" id="timer-tip"></div>
+  <div class="timer-dots" id="timer-dots"></div>
+  <div class="timer-bar"><div id="timer-bar-fill"></div></div>
+
+  <div class="timer-controls">
+    <button class="btn ghost" id="timer-skip">跳过</button>
+    <button class="btn primary" id="timer-pause">暂停</button>
+  </div>
+</div>
+
+<!-- ============ 完成弹窗 ============ -->
+<div id="finish-modal" class="overlay modal-wrap" hidden>
+  <div class="modal">
+    <div class="modal-hero">⚔</div>
+    <h3 id="finish-title">训练完成</h3>
+    <p class="modal-sub" id="finish-summary"></p>
+    <div class="field">
+      <label for="finish-cut">30 秒劈砍次数(可选)</label>
+      <input type="number" id="finish-cut" inputmode="numeric" placeholder="例如 42">
+    </div>
+    <div class="field">
+      <label for="finish-note">备注(负重/箱高/体感)</label>
+      <input type="text" id="finish-note" placeholder="例如 箱高 30cm、负重 6kg">
+    </div>
+    <button class="btn primary block" id="finish-save">保存记录</button>
+    <button class="btn ghost block" id="finish-close">暂不保存</button>
+  </div>
+</div>
+
+<!-- ============ 设置弹窗 ============ -->
+<div id="settings-modal" class="overlay modal-wrap" hidden>
+  <div class="modal">
+    <h3>设置</h3>
+    <div class="field">
+      <label>默认训练时长</label>
+      <div class="seg" id="set-version">
+        <button data-v="30" class="active">30 分钟</button>
+        <button data-v="60">60 分钟</button>
+      </div>
+    </div>
+    <div class="field">
+      <label>提示音</label>
+      <div class="seg" id="set-sound">
+        <button data-v="1">开</button>
+        <button data-v="0">关</button>
+      </div>
+    </div>
+    <div class="field">
+      <label>语音播报(中文)</label>
+      <div class="seg" id="set-voice">
+        <button data-v="1">开</button>
+        <button data-v="0">关</button>
+      </div>
+    </div>
+    <div class="field">
+      <label>4 周循环起点</label>
+      <input type="date" id="set-cycle-start">
+    </div>
+    <div class="field">
+      <label>清除全部记录</label>
+      <button class="btn ghost danger" id="set-reset">清空训练记录</button>
+    </div>
+    <button class="btn primary block" id="settings-close">完成</button>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/timer.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
