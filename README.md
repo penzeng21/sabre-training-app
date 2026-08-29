@@ -70,7 +70,7 @@ sabre-training-app/
 
 不想折腾服务器?直接下载 APK 安装包,点一下就能装:
 
-- 下载:[sabre-training-app-v1.0.0.apk](https://github.com/penzeng21/sabre-training-app/releases/download/v1.0.0/sabre-training-app-v1.0.0.apk)
+- 下载:[sabre-training-app-v1.0.0.apk](https://github.com/penzeng21/sabre-training-app/releases/download/v1.0.1/sabre-training-app-v1.0.1.apk)
 - 要求:Android 7.0(API 24)及以上;安装时需允许"未知来源"应用
 - 特性:全屏运行、训练时屏幕常亮、全离线可用;含全部训练功能(今日训练 / 循环计时器 / 动作库 / 周期 / 记录)
 
