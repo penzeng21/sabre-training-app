@@ -65,3 +65,13 @@ sabre-training-app/
 - 训练数据全部在 `js/data.js`,按文档结构调整即可。
 - 本地预览:`python -m http.server 8642 --directory sabre-training-app`
 - 修改图标后重新生成:`npm i && node icons.js`
+
+## 一键安装(安卓 APK)
+
+不想折腾服务器?直接下载 APK 安装包,点一下就能装:
+
+- 下载:[sabre-training-app-v1.0.0.apk](https://github.com/penzeng21/sabre-training-app/releases/download/v1.0.0/sabre-training-app-v1.0.0.apk)
+- 要求:Android 7.0(API 24)及以上;安装时需允许"未知来源"应用
+- 特性:全屏运行、训练时屏幕常亮、全离线可用;含全部训练功能(今日训练 / 循环计时器 / 动作库 / 周期 / 记录)
+
+> 版本更新:仓库 Releases 页面会持续发布新版本,直接下载覆盖安装即可,训练记录不会丢失。
